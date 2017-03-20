@@ -1,8 +1,8 @@
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require('mongodb');
 
 MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
-    if(err){
+    if (err) {
 
         return console.log('Unable to connect mongodb');
 
@@ -12,30 +12,31 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
     db.collection('Users').findOneAndUpdate({
 
-        age : 24
+        age: 24
 
     },
-    {   
-        $set : {
+        {
+            $set: {
 
-            name : 'Birtan JR'
+                name: 'Birtan JR'
+
+            },
+
+            $inc: {
+
+                age: -1
+
+            }
 
         },
+        {
 
-        $inc : {
+            returnOriginal: false
 
-            age : -1
+        }).then((result) => {
 
-        }
+            console.log(result);
 
-    },{
-
-        returnOriginal : false
-
-    }).then((result)=> {
-
-        console.log(result);
-
-    });
+        });
 
 });
